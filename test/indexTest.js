@@ -87,7 +87,7 @@ describe("The payroll system", function () {
   describe("it adds a timeIn event Object to an employee's record of timeInEvents when provided an employee record and Date/Time String and returns the updated record", function () {
 
     it("has a function called createTimeInEvent", function () {
-      expect(createTimeInEvent).to.exist
+      expect(createTimeInEvent.call).to.exist
     })
 
     describe("createTimeInEvent", function () {
@@ -95,21 +95,21 @@ describe("The payroll system", function () {
 
       it("creates the correct type", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeInEvent(bpRecord, "2014-02-28 1400")
+        let updatedBpRecord = createTimeInEvent.call(bpRecord, "2014-02-28 1400")
         let newEvent = updatedBpRecord.timeInEvents[0]
         expect(newEvent.type).to.equal("TimeIn")
       })
 
       it("extracts the correct date", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeInEvent(bpRecord, "2014-02-28 1400")
+        let updatedBpRecord = createTimeInEvent.call(bpRecord, "2014-02-28 1400")
         let newEvent = updatedBpRecord.timeInEvents[0]
         expect(newEvent.date).to.eq("2014-02-28");
       })
 
       it("extracts the correct hour", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeInEvent(bpRecord, "2014-02-28 1400")
+        let updatedBpRecord = createTimeInEvent.call(bpRecord, "2014-02-28 1400")
         let newEvent = updatedBpRecord.timeInEvents[0]
         expect(newEvent.hour).to.eq(1400);
       })
@@ -119,7 +119,7 @@ describe("The payroll system", function () {
   describe("it adds a timeOut event Object to an employee's record of timeOutEvents when provided an employee record and Date/Time String and returns the updated record", function () {
 
     it("has a function called createTimeOutEvent", function () {
-      expect(createTimeOutEvent).to.exist
+      expect(createTimeOutEvent.call).to.exist
     })
 
     describe("createTimeOutEvent", function () {
@@ -127,21 +127,21 @@ describe("The payroll system", function () {
 
       it("creates the correct type", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeOutEvent(bpRecord, "2015-02-28 1700")
+        let updatedBpRecord = createTimeOutEvent.call(bpRecord, "2015-02-28 1700")
         let newEvent = updatedBpRecord.timeOutEvents[0]
         expect(newEvent.type).to.equal("TimeOut")
       })
 
       it("extracts the correct date", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeOutEvent(bpRecord, "2015-02-28 1700")
+        let updatedBpRecord = createTimeOutEvent.call(bpRecord, "2015-02-28 1700")
         let newEvent = updatedBpRecord.timeOutEvents[0]
         expect(newEvent.date).to.eq("2015-02-28");
       })
 
       it("extracts the correct hour", function () {
         let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3])
-        let updatedBpRecord = createTimeOutEvent(bpRecord, "2015-02-28 1700")
+        let updatedBpRecord = createTimeOutEvent.call(bpRecord, "2015-02-28 1700")
         let newEvent = updatedBpRecord.timeOutEvents[0]
         expect(newEvent.hour).to.eq(1700);
       })
@@ -151,15 +151,15 @@ describe("The payroll system", function () {
   describe("Given an employee record with a date-matched timeInEvent and timeOutEvent", function () {
 
     it("hoursWorkedOnDate calculates the hours worked when given an employee record and a date", function () {
-      expect(hoursWorkedOnDate).to.exist
+      expect(hoursWorkedOnDate.call).to.exist
     })
 
     describe("hoursWorkedOnDate", function () {
       it("calculates that the employee worked 2 hours", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 1000])
-        updatedBpRecord = createTimeInEvent(cRecord, "0044-03-15 0900")
-        updatedBpRecord = createTimeOutEvent(cRecord, "0044-03-15 1100")
-        expect(hoursWorkedOnDate(cRecord, "0044-03-15")).to.equal(2)
+        updatedBpRecord = createTimeInEvent.call(cRecord, "0044-03-15 0900")
+        updatedBpRecord = createTimeOutEvent.call(cRecord, "0044-03-15 1100")
+        expect(hoursWorkedOnDate.call(cRecord, "0044-03-15")).to.equal(2)
       })
     })
   })
@@ -167,15 +167,15 @@ describe("The payroll system", function () {
   describe("Given an employee record with a date-matched timeInEvent and timeOutEvent", function () {
 
     it("wagesEarnedOnDate multiplies the hours worked by the employee's rate per hour", function () {
-      expect(wagesEarnedOnDate).to.exist
+      expect(wagesEarnedOnDate.call).to.exist
     })
 
     describe("wagesEarnedOnDate", function () {
       it("calculates that the employee earned 54 dollars", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
-        updatedBpRecord = createTimeInEvent(cRecord, "0044-03-15 0900")
-        updatedBpRecord = createTimeOutEvent(cRecord, "0044-03-15 1100")
-        expect(wagesEarnedOnDate(cRecord, "0044-03-15")).to.equal(54)
+        updatedBpRecord = createTimeInEvent.call(cRecord, "0044-03-15 0900")
+        updatedBpRecord = createTimeOutEvent.call(cRecord, "0044-03-15 1100")
+        expect(wagesEarnedOnDate.call(cRecord, "0044-03-15")).to.equal(54)
       })
     })
   })
@@ -190,13 +190,13 @@ describe("The payroll system", function () {
       it("calculates that the employee earned 378 dollars", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 27])
         // Earns 324
-        updatedBpRecord = createTimeInEvent(cRecord, "0044-03-14 0900")
-        updatedBpRecord = createTimeOutEvent(cRecord, "0044-03-14 2100")
+        updatedBpRecord = createTimeInEvent.call(cRecord, "0044-03-14 0900")
+        updatedBpRecord = createTimeOutEvent.call(cRecord, "0044-03-14 2100")
         // Earns 54
-        updatedBpRecord = createTimeInEvent(cRecord, "0044-03-15 0900")
-        updatedBpRecord = createTimeOutEvent(cRecord, "0044-03-15 1100")
+        updatedBpRecord = createTimeInEvent.call(cRecord, "0044-03-15 0900")
+        updatedBpRecord = createTimeOutEvent.call(cRecord, "0044-03-15 1100")
         // 324 + 54
-        expect(allWagesFor(cRecord)).to.equal(378)
+        expect(allWagesFor.call(cRecord)).to.equal(378)
       })
     })
   })
@@ -223,18 +223,18 @@ describe("The payroll system", function () {
 
         sTimeData.forEach(function (d) {
           let [dIn, dOut] = d
-          sRecord = createTimeInEvent(sRecord, dIn)
-          sRecord = createTimeOutEvent(sRecord, dOut)
+          sRecord = createTimeInEvent.call(sRecord, dIn)
+          sRecord = createTimeOutEvent.call(sRecord, dOut)
         })
 
         rTimeData.forEach(function (d, i) {
           let [dIn, dOut] = d
-          rRecord = createTimeInEvent(rRecord, dIn)
-          rRecord = createTimeOutEvent(rRecord, dOut)
+          rRecord = createTimeInEvent.call(rRecord, dIn)
+          rRecord = createTimeOutEvent.call(rRecord, dOut)
         })
 
         let employees = [sRecord, rRecord]
-        let grandTotalOwed = employees.reduce((m, e) => m + allWagesFor(e), 0)
+        let grandTotalOwed = employees.reduce((m, e) => m + allWagesFor.call(e), 0)
         expect(grandTotalOwed).to.equal(calculatePayroll(employees))
       })
     })
@@ -313,11 +313,11 @@ describe("The payroll system", function () {
               })
 
               timesInRecordRow[1].forEach(function(timeInStamp){
-                createTimeInEvent(rec, timeInStamp)
+                createTimeInEvent.call(rec, timeInStamp)
               })
 
               timesOutRecordRow[1].forEach(function(timeOutStamp){
-                createTimeOutEvent(rec, timeOutStamp)
+                createTimeOutEvent.call(rec, timeOutStamp)
               })
             })
             expect(calculatePayroll(employeeRecords)).to.eql(12480)
